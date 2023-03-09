@@ -6,13 +6,17 @@ import java.util.Scanner;
 
 public interface IHospital {
 
-        void insertPatientinfo(Patient pojoPatient);
-        void removeByName(Scanner scanner);
-        void searchById(Scanner scanner);
-        void sortByAge();
+    void insertPatientinfo(Patient pojoPatient);
 
-        int calculateAverageAgeOfAllPatient();
-        void displyInfo();
+    void removeByName(Scanner scanner);
+
+    void searchById(Scanner scanner);
+
+    void sortByAge();
+
+    int calculateAverageAgeOfAllPatient();
+
+    void displyInfo();
 
 
 }

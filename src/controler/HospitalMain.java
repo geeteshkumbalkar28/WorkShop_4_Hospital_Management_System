@@ -10,6 +10,9 @@
 package controler;
 
 
+import exception.FirstNameException;
+import exception.InvalidLastNameException;
+import exception.MobileNumberException;
 import model.Patient;
 import services.HospitalImp;
 
@@ -19,6 +22,7 @@ public class HospitalMain {
     private static Patient patient;
     private static HospitalImp hospitalImp = new HospitalImp();
     private static Scanner SCANNER = new Scanner(System.in);
+
     public static void main(String[] args) {
         int checkCondition = 0;
         do {
@@ -32,34 +36,50 @@ public class HospitalMain {
             System.out.println("10 : Tarminate the application ");
 
             checkCondition = SCANNER.nextInt();
-            switch (checkCondition)
-            {
+            switch (checkCondition) {
                 case 1:
-                    insertInfo();
-                break;
+                    try{
+
+                        insertInfo();
+                    }catch (InvalidLastNameException lastName)
+                    {
+                        System.err.println(lastName);
+                        insertInfo();
+                    }catch (FirstNameException firstName)
+                    {
+                        System.err.println(firstName);
+                        insertInfo();
+                    }catch (MobileNumberException mobileNumber)
+                    {
+                        System.err.println(mobileNumber);
+                        insertInfo();
+                    }
+
+                    break;
                 case 2:
                     hospitalImp.removeByName(SCANNER);
-                break;
+                    break;
                 case 3:
                     hospitalImp.searchById(SCANNER);
-                break;
+                    break;
                 case 4:
                     hospitalImp.sortByAge();
-                break;
+                    break;
                 case 5:
-                    System.out.println("Average age of all patients :"+hospitalImp.calculateAverageAgeOfAllPatient());
-                break;
+                    System.out.println("Average age of all patients :" + hospitalImp.calculateAverageAgeOfAllPatient());
+                    break;
                 case 6:
                     hospitalImp.displyInfo();
-                break;
+                    break;
                 case 10:
+                    hospitalImp.insertInJdbc();
                     checkCondition = 0;
-                break;
+                    break;
             }
-        }while (checkCondition !=0);
+        } while (checkCondition != 0);
     }
-    public static void insertInfo()
-    {
+
+    public static void insertInfo() {
         patient = new Patient();
 //        private int patientId;
 //        private int age;
